@@ -1,253 +1,246 @@
 #include"list.h"
 
-void dodajpoczatek (lista ** head)
+void addBeginning(node **head)
 {
-
-  	lista * tmp;
-  	tmp = malloc(sizeof(lista));
+  	node * tmp;
+  	tmp = malloc(sizeof(node));
   	if(tmp == NULL)
   	{
-	  	usuncalosc(head);
-	  	printf("Blad pamieci");
+	  	clear(head);
+	  	printf("Memory error");
   	}
-  	tmp->next = * head;
-  	* head = tmp;
-  	printf("Podaj imie: ");
-  	scanf("%s", tmp->osoba.imie);
-  	printf("Podaj nazwisko: ");
-  	scanf("%s", tmp->osoba.nazwisko);
-  	printf("Podaj rok urodzenia: ");
-  	scanf("%d", &tmp->osoba.rok);
-  	printf("Wezel zostal dodany\n");
-  	printf("Wcisnij dowolny klawisz aby kontynuowac");
+  	tmp->next = *head;
+  	*head = tmp;
+  	printf("Enter first name: ");
+  	scanf("%s", tmp->person.firstName);
+  	printf("Enter last name: ");
+  	scanf("%s", tmp->person.lastName);
+  	printf("Enter year of birth: ");
+  	scanf("%d", &tmp->person.yearofBirth);
+  	printf("Node has been added\n");
+  	printf("Press any key to continue");
   	getch();
 }
 
-void dodajsrodek (lista ** head, lista ** adres)
+void addMiddle(node **head, node **adres)
 {
-	lista * tmp;
-    tmp = malloc(sizeof(lista));
+	node *tmp;
+    tmp = malloc(sizeof(node));
     if(tmp == NULL)
     {
-    	usuncalosc(head);
-        printf("Blad pamieci\n");
+    	clear(head);
+        printf("Memory error\n");
         return;
     }
-    printf("\nPodaj imie: ");
-  	scanf("%s", tmp->osoba.imie);
-  	printf("Podaj nazwisko: ");
-  	scanf("%s", tmp->osoba.nazwisko);
-  	printf("Podaj rok urodzenia: ");
-  	scanf("%d", &tmp->osoba.rok);
-	tmp->next = (* adres)->next;
-	(* adres)->next = tmp;
-	printf("Wezel zostal dodany\n");
-  	printf("Wcisnij dowolny klawisz aby kontynuowac");
+    printf("\nEnter first name: ");
+  	scanf("%s", tmp->person.firstName);
+  	printf("Enter last name: ");
+  	scanf("%s", tmp->person.lastName);
+  	printf("Enter year of birth: ");
+  	scanf("%d", &tmp->person.yearofBirth);
+	tmp->next = (*adres)->next;
+	(*adres)->next = tmp;
+	printf("Node has been added\n");
+  	printf("Press any key to continue");
   	getch();
 }
 
-void dodajkoniec(lista * head)
+void addEnd(node *head)
 {
-  	lista * tmp;
-  	lista * tmp2;
-  	tmp2 = malloc(sizeof(lista));
+  	node *tmp;
+  	node *tmp2;
+  	tmp2 = malloc(sizeof(node));
   	if(tmp2 == NULL)
   	{
-  		usuncalosc(&head);
-	  	printf("Blad pamieci");
+  		clear(&head);
+	  	printf("Memory error");
 	}
-	printf("Podaj imie: ");
-  	scanf("%s", tmp2->osoba.imie);
-  	printf("Podaj nazwisko: ");
-  	scanf("%s", tmp2->osoba.nazwisko);
-  	printf("Podaj rok urodzenia: ");
-  	scanf("%d", &tmp2->osoba.rok);
+	printf("Enter first name: ");
+  	scanf("%s", tmp2->person.firstName);
+  	printf("Enter last name: ");
+  	scanf("%s", tmp2->person.lastName);
+  	printf("Enter year of birth: ");
+  	scanf("%d", &tmp2->person.yearofBirth);
   	for(tmp = head; (tmp->next) != NULL; tmp = tmp->next);
   	tmp->next = tmp2;
   	tmp2->next = NULL;
   	printf("Wezel zostal dodany\n");
-  	printf("Wcisnij dowolny klawisz aby kontynuowac");
+  	printf("Press any key to continue");
   	getch();
 }
 
-void usunpoczatek (lista ** head)
+void deleteBeginning(node **head)
 {
-	if(*head==NULL)
+	if(*head == NULL)
 	{
-		printf("Nic nie ma na liscie,nie mozna nic usunac");
-		printf("Wcisnij dowolny klawisz aby kontynuowac");
+		printf("There is nothing to delete");
+		printf("Press any key to continue");
   		getch();
 	}
 	else
 	{
-		lista * tmp = (* head)->next;
-		free (* head);
-		* head = NULL;
-		* head = tmp;
-		printf("Wezel zostal usuniety\n");
-  		printf("Wcisnij dowolny klawisz aby kontynuowac");
+		node *tmp = (*head)->next;
+		free (*head);
+		*head = NULL;
+		*head = tmp;
+		printf("Node has been deleted\n");
+  		printf("Press any key to continue");
   		getch();
   	}
 }
 
-void usunsrodek (lista ** head, lista ** adres)
+void deleteMiddle(node **head, node **adres)
 {
-	lista * tmp, * przed;
+	node *tmp, *before;
 	if((*head)->next == NULL)
 	{
-		free(* head);
-		* head = NULL;
-		printf("Wezel zostal usuniety\n");
-  		printf("Wcisnij dowolny klawisz aby kontynuowac");
+		free(*head);
+		*head = NULL;
+		printf("Node has been deleted\n");
+  		printf("Press any key to continue");
   		getch();
 	}
 	else
 	{
-		for(tmp = * head; tmp != * adres; tmp = tmp->next)
-			przed=tmp;
-		przed->next = (*adres)->next;
-		free(* adres);
-		* adres = NULL;
-		printf("Wezel zostal usuniety\n");
-  		printf("Wcisnij dowolny klawisz aby kontynuowac");
+		for(tmp = *head; tmp != *adres; tmp = tmp->next)
+			before = tmp;
+		before->next = (*adres)->next;
+		free(*adres);
+		*adres = NULL;
+		printf("Node has been deleted\n");
+  		printf("Press any key to continue");
   		getch();
   	}
 }
 
-void usunkoniec (lista ** head)
+void deleteEnd(node **head)
 {
-	lista * przedostatni, * ostatni, * tmp = * head;
+	node *beforeLast, *last, *tmp = *head;
 
-	if(*head==NULL)
+	if(*head == NULL)
 	{
-		printf("Nic nie ma na liscie,nie mozna nic usunac\n");
-		printf("Wcisnij dowolny klawisz aby kontynuowac");
+		printf("There is nothing to delete\n");
+		printf("Press any key to continue");
   		getch();
 	}
 	else if(tmp->next == NULL)
 	{
-		* head = NULL;
-		printf("Wezel zostal usuniety\n");
-  		printf("Wcisnij dowolny klawisz aby kontynuowac");
+		*head = NULL;
+		printf("Node has been deleted\n");
+  		printf("Press any key to continue");
   		getch();
 		return;
 	}
 	else
 	{
-		for(tmp = * head; tmp->next != NULL; tmp = tmp->next)
-			przedostatni = tmp;
-		for(tmp = * head; tmp != NULL; tmp = tmp->next)
-			ostatni = tmp;
-		przedostatni->next = ostatni->next;
-		printf("Wezel zostal usuniety\n");
-  		printf("Wcisnij dowolny klawisz aby kontynuowac");
+		for(tmp = *head; tmp->next != NULL; tmp = tmp->next)
+			beforeLast = tmp;
+		for(tmp = *head; tmp != NULL; tmp = tmp->next)
+			last = tmp;
+		beforeLast->next = last->next;
+		printf("Node has been deleted\n");
+  		printf("Press any key to continue");
   		getch();
 	}
 }
 
-void wypisz (lista * head)
+void show(node *head)
 {
 	if(head == NULL)
-		printf("Lista jest pusta\n");
+		printf("List is empty\n");
   	int i = 1;
   	for(head = head; head != NULL; head = head->next)
   	{
-    	printf("%d WEZEL:\nimie: %s\nNazwisko: %s\nRok Urodzenia: %d\n",
-				i,head->osoba.imie,head->osoba.nazwisko,head->osoba.rok);
+    	printf("%d Node:\nFirst Name: %s\nLast Name: %s\nYear of Birth: %d\n",
+				i,head->person.firstName,head->person.lastName,head->person.yearofBirth);
 		i++;
   	}
-  	printf("Wcisnij dowolny klawisz aby kontynuowac");
+  	printf("Press any key to continue");
   	getch();
 }
 
-void wyszukajrok (lista * head)
+void searchYear(node *head)
 {
-	int rok, x = 0;
-	printf("Podaj rok urodzenia szukanej osoby: ");
-	scanf("%d", &rok);
+	int yearofBirth, x = 0;
+	printf("Enter year of birth searched person: ");
+	scanf("%d", &yearofBirth);
 	for(head = head; head != NULL; head = head->next)
 	{
-		if((head->osoba.rok) == rok)
+		if((head->person.yearofBirth) == yearofBirth)
 		{
-			printf("Szukana osoba jest na liscie!\nOto jej dane:\nImie: %s\nNazwisko: %s\nRok Urodzenia: %d\n",
-					head->osoba.imie,head->osoba.nazwisko,head->osoba.rok);
-			printf("Wcisnij dowolny klawisz aby kontynuowac");
+			printf("Person found!\nFirst Name: %s\nLast Name: %s\n Year of Birth: %d\n",
+					head->person.firstName, head->person.lastName, head->person.yearofBirth);
+			printf("Press any key to continue");
 			x++;
 			getch();
 		}
 	}
 	if(x == 0)
 	{
-		printf("Niestety szukanej osoby nie ma na liscie\n");
-		printf("Wcisnij dowolny klawisz aby kontynuowac");
+		printf("There is no such a person in storage\n");
+		printf("Press any key to continue");
 		getch();
 	}
 }
 
-void wyszukajnazwisko (lista * head)
+void searchName(node *head)
 {
 	int i, x, y = 0;
-	char nazwisko[SIZE];
-	printf("Podaj nazwisko szukanej osoby: ");
-	scanf("%s", nazwisko);
+	char lastName[SIZE];
+	printf("Enter last name searched person: ");
+	scanf("%s", lastName);
 	for(head = head; head != NULL; head = head->next)
 	{
 		x = 0;
-		for(i = 0; nazwisko[i] != '\0'; i++)
+		for(i = 0; lastName[i] != '\0'; i++)
 		{
-			if((head->osoba.nazwisko[i]) != nazwisko[i])
+			if((head->person.lastName[i]) != lastName[i])
 			{
 				x++;
 			}
 		}
 		if(x == 0)
 		{
-			printf("Szukana osoba jest w liscie!\nOto jej dane:\nImie: %s\nNazwisko: %s\nRok Urodzenia: %d\n",
-					head->osoba.imie,head->osoba.nazwisko,head->osoba.rok);
-			printf("Wcisnij dowolny klawisz aby kontynuowac");
+			printf("Person found!\nPersonal data:\nFirst Name: %s\nLast Name: %s\nYear of Birth: %d\n",
+					head->person.firstName, head->person.lastName, head->person.yearofBirth);
+			printf("Press any key to continue");
 			getch();
 			y++;
 		}
 	}
 	if(y == 0)
 	{
-		printf("Szukanej osoby nie ma na liscie\n");
-		printf("Wcisnij dowolny klawisz aby kontynuowac");
+		printf("There is no such a person in storage\n");
+		printf("Press any key to continue");
 		getch();
 	}
 }
 
-void usuncalosc (lista ** head)
+void clear(node **head)
 {
-	lista * tmp;
-	for(tmp = * head; * head != NULL; * head = tmp->next)
+	node *tmp;
+	for(tmp = *head; *head != NULL; *head = tmp->next)
 	{
-		tmp = * head;
+		tmp = *head;
 		free(tmp);
 
 	}
-	printf("Lista zostala wyczyszczona");
-	printf("Wcisnij dowolny klawisz aby kontynuowac");
+	printf("Storage has been cleared\n");
+	printf("Press any key to continue");
 	getch();
 }
 
-lista * wyszukaj (lista * head)
+node *search(node *head)
 {
-	int rok, x = 0;
-	printf("Podaj rok urodzenia szukanej osoby: ");
-	scanf("%d", &rok);
+	int yearofBirth;
+	printf("Enter year of birth searched person: ");
+	scanf("%d", &yearofBirth);
+
 	for(head = head; head != NULL; head = head->next)
-	{
-		if((head->osoba.rok) == rok)
-		{
-			x++;
+		if((head->person.yearofBirth) == yearofBirth)
 			return head;
-		}
-	}
-	if(x == 0)
-	{
-		head=NULL;
-		return head;
-	}
+
+	head = NULL;
+	return head;
 }
 

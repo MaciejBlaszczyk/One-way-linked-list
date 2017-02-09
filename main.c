@@ -2,72 +2,80 @@
 
 int main()
 {
-  	lista * head = NULL;
-	lista * adres = NULL;
+  	node *head = NULL;
+	node *adres = NULL;
   	int numb;
-  	for(;;system("cls"))
+  	for( ;  ; system("cls"))
   	{
-  		printf("Witaj w liscie jednokierunkowej!\nMozesz gromadzic tutaj dane osobowe!\n\n"
-  			   "Jesli chcesz dodac na poczatek listy nowy wezel wcisnij \"1\"\n"
-  			   "Jesli chcesz dodac w srodku listy nowy wezel wcisnij \"2\"\n"
-  			   "Jesli chcesz dodac na koncu listy nowy wezel wcisnij \"3\"\n"
-  			   "Jesli chcesz usunac wezel z poczatku listy wcisnij \"4\"\n"
-  			   "Jesli chcesz usunac wezel ze srodka listy wcisnij \"5\"\n"
-  			   "Jesli chcesz usunac wezel z konca listy wcisnij \"6\"\n"
-			   "Jesli chcesz wypisac cala liste wcisnij \"7\"\n"
-			   "Jesli chcesz wyszukac kogos po roku urodzenia wcisnij \"8\"\n"
-			   "Jesli chcesz wyszukac kogos po nazwisku wcisnij \"9\"\n"
-			   "Jesli chcesz usunac cala liste wcisnij \"10\"\n"
-			   "Jesli chcesz wyjsc wcisnij \"11\"\n");
+  		printf("Welcome in personal data storage powered by one way linked list!\n"
+  			   "If you want to add data in the beginning of the list, press 1\n"
+  			   "If you want to add data in the middle of the list, press 2\n"
+  			   "If you want to add data in the end of the list, press 3\n"
+  			   "If you want to delete data from the beginning of the list, press 4\n"
+  			   "If you want to delete data from the middle of the list, press 5\n"
+  			   "If you want to delete data from the end of the list, press 6\n"
+			   "If you want to show whole list, press 7\n"
+			   "If you want to search someone by year of birth, press 8\n"
+			   "If you want to search someone by last name, press 9\n"
+			   "If you want to delete whole list, press 10\n"
+			   "If you want to exit, press 11\n");
   		if(scanf("%d", &numb) == 0)
   		{
   			free(head);
-  			head=NULL;
+  			head = NULL;
   			return -1;
 		}
 		switch(numb)
 		{
-			case 1 : dodajpoczatek(&head); break;
-			case 2 : adres=wyszukaj(head);
+			case 1 : addBeginning(&head);
+			break;
+			case 2 : adres = search(head);
 					 if(adres==NULL)
 					 {
-					 	printf("Niestety szukanej osoby nie ma na liscie\n");
-					 	printf("Wcisnij dowolny klawisz aby kontynuowac");
+					 	printf("There is no such a person in storage\n");
+					 	printf("Press any key to continue");
 					 	getch();
 					 	break;
 					 }
 					 else
 					 {
-					 	printf("Szukana osoba jest na liscie! \nMozesz dodac po niej nowy wezel\n");
-					 	dodajsrodek(&head, &adres); break;
+					 	printf("Person found! \nYou can add new data\n");
+					 	addMiddle(&head, &adres); break;
 					 }
 					 adres=NULL;
-			case 3 : dodajkoniec(head); break;
-			case 4 : usunpoczatek(&head); break;
-			case 5 : adres=wyszukaj(head);
-					 if(adres==NULL)
+			case 3 : addEnd(head);
+			break;
+			case 4 : deleteBeginning(&head);
+			break;
+			case 5 : adres = search(head);
+					 if(adres == NULL)
 					 {
-					 	printf("Niestety szukanej osoby nie ma na liscie\n");
-					 	printf("Wcisnij dowolny klawisz aby kontynuowac");
+					 	printf("There is no such a person in storage\n");
+					 	printf("Press any key to continue");
 					 	getch();
-					 	break;
 					 }
 					 else
 					 {
-					 	printf("Szukana osoba jest na liscie! \nMozesz usunac ten wezel\n");
-					 	usunsrodek(&head, &adres); break;
+					 	printf("Person found! \nYou can delete data\n");
+					 	deleteMiddle(&head, &adres);
 					 }
 					 adres=NULL;
-			case 6 : usunkoniec(&head); break;
-			case 7 : wypisz(head); break;
-			case 8 : wyszukajrok(head); break;
-			case 9 : wyszukajnazwisko(head); break;
-			case 10 : usuncalosc(&head); break;
+					 break;
+			case 6 : deleteEnd(&head);
+			break;
+			case 7 : show(head);
+			break;
+			case 8 : searchYear(head);
+			break;
+			case 9 : searchName(head);
+			break;
+			case 10 : clear(&head);
+			break;
 			case 11 : free(head);
-  					  head=NULL;
-  					  return -1;
-			default : printf("Podaj inny numer\n");
-					  printf("Wcisnij dowolny klawisz aby kontynuowac\n");
+  					  head = NULL;
+  					  return 1;
+			default : printf("Enter other number\n");
+					  printf("Press any key to continue\n");
 					  getch();
 		}
   	}

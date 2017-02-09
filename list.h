@@ -4,27 +4,27 @@
 
 #define SIZE 20
 
-typedef struct dane
+typedef struct data
 {
-  char imie[SIZE];
-  char nazwisko[SIZE];
-  int rok;
-}dane;
+  char firstName[SIZE];
+  char lastName[SIZE];
+  int yearofBirth;
+}data;
 
-typedef struct lista
+typedef struct node
 {
-  dane osoba;
-  struct lista * next;
-}lista;
+  data person;
+  struct node * next;
+}node;
 
-void dodajpoczatek (lista **);
-void dodajsrodek (lista**, lista **);
-void dodajkoniec (lista *);
-void usunpoczatek (lista **);
-void usunsrodek (lista **, lista **);
-void usunkoniec (lista **);
-void wypisz (lista *);
-void wyszukajrok (lista *);
-void wyszukajnazwisko (lista *);
-void usuncalosc (lista **);
-lista * wyszukaj (lista * head);
+void addBeginning (node **);
+void addMiddle (node**, node **);
+void addEnd (node *);
+void deleteBeginning (node **);
+void deleteMiddle (node **, node **);
+void deleteEnd (node **);
+void show (node *);
+void searchYear (node *);
+void searchName (node *);
+void clear (node **);
+node * search (node * head);
