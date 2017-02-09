@@ -1,1 +1,5 @@
-# One-way-linked-list
+# Personal data storage
+
+Written : 12.2015
+
+Language : C
